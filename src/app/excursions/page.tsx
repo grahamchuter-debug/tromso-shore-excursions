@@ -28,8 +28,8 @@ const breadcrumbs = [
 const relatedLinks = [
   { label: "Tromsø port guide", href: "/tromso-port-guide" },
   { label: "One day in Tromsø", href: "/one-day-in-tromso" },
+  { label: "Ship schedule", href: "/ship-schedule" },
   { label: "Northern Lights Tromsø", href: "/northern-lights-tromso" },
-  { label: "Cruise Smart Planner", href: "/#planner" },
 ] as const;
 
 const faqs = [

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default:
-      "Tromso Shore Excursions | Northern Lights, Arctic Fjords & Cruise Port Guides",
+      "Tromso Shore Excursions | Arctic Cruise Port Tours & Guides",
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.defaultDescription,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Tromso Shore Excursions | Northern Lights, Arctic Fjords & Cruise Port Guides",
+      "Tromso Shore Excursions | Arctic Cruise Port Tours & Guides",
     description: siteConfig.defaultDescription,
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Tromso Shore Excursions | Northern Lights, Arctic Fjords & Cruise Port Guides",
+      "Tromso Shore Excursions | Arctic Cruise Port Tours & Guides",
     description: siteConfig.defaultDescription,
     images: [siteConfig.defaultOgImage],
   },

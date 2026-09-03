@@ -36,12 +36,14 @@ export const siteImages = {
   kaldfjord,
   reindeer: reindeerTromso,
   samiCulture: samiReindeerFence,
+  /** Nordkapp Globe — WRONG_LOCATION for Tromsø. Do not use in Tromsø-local UI. */
   midnightSun,
+  /** Magerøya / Finnmark — WRONG_LOCATION for Tromsø. Do not use in Tromsø-local UI. */
   snowyArctic,
   portGuide: tromsoCruiseHarbour,
   worthVisiting: auroraHero,
   oneDay: kaldfjord,
-  bestTime: midnightSun,
+  bestTime: tromsoHarbour,
   northernLightsPage: northernLightsTromso,
   bestNorthernLightsTours: northernLightsLauklines,
   reindeerTours: reindeerTromso,
@@ -103,9 +105,9 @@ export const imageAlts = {
   samiCulture:
     "Sami people at a reindeer fence, Sami culture experience near Tromsø",
   midnightSun:
-    "Midnight sun over Arctic Norway, best time to visit Tromsø summer cruise season",
+    "Midnight sun at the Nordkapp Globe Monument (North Cape / Honningsvåg region, not Tromsø)",
   snowyArctic:
-    "Reindeer in snowy Arctic landscape near northern Norway",
+    "Reindeer on Magerøya along the E69 in Finnmark (not Tromsø local scenery)",
   portGuide:
     "Cruise ship at Tromsø harbour, Tromsø port guide for shore excursion passengers",
   worthVisiting:
@@ -113,7 +115,7 @@ export const imageAlts = {
   oneDay:
     "Kaldfjord Arctic fjord scenery near Tromsø, one day in Tromsø itinerary",
   bestTime:
-    "Midnight sun in Arctic Norway, best time to visit Tromsø for aurora or summer",
+    "Tromsø harbour waterfront for seasonal cruise planning context",
   northernLightsPage:
     "Northern lights aurora over Tromsø, Northern Lights tours and aurora chase",
   bestNorthernLightsTours:

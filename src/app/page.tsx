@@ -2,25 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CruisePortDayPlanner } from "@/components/cruise-port-day-planner";
-import {
-  ExploreNorwegianPorts,
-  explorePortsFromTromso,
-} from "@/components/explore-norwegian-ports";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
-import { PlannerInterestGroups } from "@/components/planner-interest-groups";
 import { TourCard } from "@/components/tour-card";
+import {
+  tromsoScheduleIntegrity,
+  formatScheduleDate,
+} from "@/lib/tromso-schedules";
 import { tromsoTourCards, tromsoTourListItems } from "@/lib/tromso-tours";
 import { siteConfig } from "@/lib/site-config";
-import { buildPageMetadata } from "@/lib/site-metadata";
-import { buildFaqSchema, buildItemListSchema, buildWebPageSchema } from "@/lib/site-schema";
 import { imageAlts, siteImages } from "@/lib/site-images";
+import { buildPageMetadata } from "@/lib/site-metadata";
+import {
+  buildFaqSchema,
+  buildItemListSchema,
+  buildWebPageSchema,
+} from "@/lib/site-schema";
 
 const pageMeta = {
   title:
-    "Tromso Shore Excursions | Northern Lights, Arctic Fjords & Cruise Port Guides",
+    "Tromso Shore Excursions | Cruise Port Tours, Arctic City & Aurora Guides",
   description:
-    "Plan your Tromsø cruise port day with Northern Lights aurora chases, fjord photo tours, reindeer and Sami experiences, Arctic Cathedral visits, and return-to-ship friendly shore excursion advice.",
+    "Plan your Tromsø cruise port day: city and fjord daylight, Northern Lights when darkness and ship timing allow, reindeer and Sami culture, published ship schedules, and honest return-buffer planning.",
   path: "/",
 } as const;
 
@@ -31,36 +34,39 @@ export const metadata: Metadata = buildPageMetadata({
   absoluteTitle: true,
 });
 
-const trustBadges = [
-  { label: "Return to ship on time", accent: true },
-  { label: "Arctic adventure specialists", accent: false },
-  { label: "Northern Lights experiences", accent: false },
-] as const;
-
 const homeFaqs = [
   {
-    question: "What is the best shore excursion in Tromsø for cruise passengers?",
+    question: "Is this site for cruise passengers calling at Tromsø?",
     answer:
-      "The Aurora Chase Small Group Experience is the premium headline choice on overnight winter calls. For daytime port days, the Tromsø Fjord Photo Tour is the main scenic option. Culture-focused guests often choose the Reindeer Visit and Sami Experience.",
+      "Yes. This is an independent Tromsø cruise-port planning site. It helps you choose between city daylight scenery, cultural Arctic time, and evening aurora only when darkness and ship timing allow. Confirm final timings with your cruise line.",
   },
   {
     question: "Can I see the Northern Lights on a Tromsø cruise port day?",
     answer:
-      "Daytime port calls cannot fit an evening aurora chase unless your ship stays overnight in Tromsø. Winter repositioning cruises and land-and-sea combinations offer the best chance for Northern Lights shore excursions.",
+      "Only when darkness and your ship timing allow, typically overnight winter calls or late departures. Daytime summer calls sit in midnight-sun daylight, so aurora chasing is not realistic then. A published ship call never proves lights will appear.",
   },
   {
-    question: "How far is Tromsø city centre from the cruise port?",
+    question: "Should I book shore excursions on this site?",
     answer:
-      "Most berths are within 10 to 20 minutes on foot of the harbourfront, Arctic Cathedral viewpoint across the bridge, and main excursion meeting points. Confirm your exact pier on the ship's app.",
+      "This site is for planning and discovery. There is no live booking checkout here. Use the excursion pages and guides to understand options, then arrange tours through operators or your usual booking channel.",
   },
   {
-    question: "Should I book Tromsø shore excursions independently?",
+    question: "How do I choose between fjord scenery, aurora and reindeer?",
     answer:
-      "Independent bookings often cost less than ship tours, but you manage your own return-to-ship timing. Use our Cruise Smart Planner, confirm all-aboard on your cruise app, and allow 45 minutes before the gangway closes.",
+      "Match the outing to hours ashore and season. Daylight calls suit harbour walks, fjord photo touring and cultural experiences. Evening aurora needs darkness plus confirmed return timing. Pick one main direction unless tickets and timing are already locked in.",
   },
 ] as const;
 
 export default function Home() {
+  const firstLabel = tromsoScheduleIntegrity.firstDate
+    ? formatScheduleDate(tromsoScheduleIntegrity.firstDate)
+    : "";
+  const lastLabel = tromsoScheduleIntegrity.lastDate
+    ? formatScheduleDate(tromsoScheduleIntegrity.lastDate)
+    : "";
+  const featured = tromsoTourCards.slice(0, 3);
+  const remaining = tromsoTourCards.slice(3);
+
   return (
     <>
       <JsonLd
@@ -74,211 +80,316 @@ export default function Home() {
           buildFaqSchema(homeFaqs),
         ]}
       />
-      <main className="min-h-screen bg-white text-slate-900">
+      <main>
         <PageHero
           image={siteImages.hero}
           imageAlt={imageAlts.hero}
-          centered
           className="min-h-[28rem] md:min-h-[32rem]"
         >
-          <h1 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-6xl lg:text-7xl">
-            Tromso Shore Excursions
-          </h1>
-
-          <p className="mx-auto mb-6 max-w-3xl text-base text-white/90 sm:mb-8 sm:text-xl md:text-2xl">
-            Explore Northern Lights, Arctic fjords, Sami culture, reindeer
-            experiences and unforgettable adventures from Tromsø.
+          <p className="hero-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em]">
+            {siteConfig.name}
           </p>
-
-          <a href="#tours" className="btn-primary px-8 py-4 text-base sm:text-lg">
-            View Excursions
-          </a>
-
-          <ul className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3">
-            {trustBadges.map((badge) => (
-              <li
-                key={badge.label}
-                className={`rounded-full px-3 py-1.5 text-xs font-medium text-white/95 backdrop-blur-sm sm:px-4 sm:text-sm ${
-                  badge.accent
-                    ? "badge-accent-red"
-                    : "border border-white/25 bg-white/10"
-                }`}
-              >
-                {badge.label}
-              </li>
-            ))}
-          </ul>
+          <h1 className="mb-5 max-w-4xl text-3xl font-semibold leading-tight text-white sm:text-5xl">
+            Your ship is in Tromsø. City daylight, evening aurora, or cultural
+            Arctic time?
+          </h1>
+          <p className="max-w-2xl text-base leading-7 text-white/90 sm:text-lg">
+            Harbour and fjord scenery by day, Northern Lights only when darkness
+            and your call allow, or reindeer and Sami culture. Choose one main
+            direction, then keep time to get back.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link
+              href="/excursions"
+              className="btn-primary w-full justify-center sm:w-auto"
+            >
+              Explore Tromsø excursions
+            </Link>
+            <Link
+              href="/ship-schedule"
+              className="btn-secondary w-full justify-center sm:w-auto"
+            >
+              Check your ship schedule
+            </Link>
+          </div>
         </PageHero>
 
-        <section id="tours" className="border-t bg-surface-muted">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-            <h2 className="mb-2 text-3xl font-bold sm:mb-3 sm:text-4xl">
-              Popular Tromsø Tours
+        <section className="border-b border-[var(--border-light)] bg-[var(--surface)] py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Three Tromsø days</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              City daylight, evening aurora, or cultural Arctic time
             </h2>
-            <p className="mb-4 max-w-2xl text-slate-600">
-              Arctic shore excursions departing near Tromsø harbour, from premium
-              aurora chases to fjord photography and Sami culture experiences.
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              The inventory on this site already splits that way. Use the one-day
+              guide for hours. A published ship call is not proof of aurora or
+              wildlife.
             </p>
-            <p className="mb-8 max-w-2xl rounded-lg border border-slate-200 border-l-[3px] border-l-[var(--norway-blue)] bg-white px-4 py-3 text-sm leading-6 text-slate-700">
-              Every excursion featured is selected to fit comfortably within a
-              typical Tromsø cruise port call when matched to your hours ashore.
-            </p>
+            <div className="mt-10 grid gap-10 md:grid-cols-3">
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900">
+                  City and daylight scenery
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  Harbour walks, Arctic Cathedral views and Kvaløya fjord photo
+                  touring when you want Tromsø in daylight.
+                </p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <Link
+                    href="/excursions/fjord-photo-tour"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Tromsø Fjord Photo Tour
+                  </Link>
+                  <Link
+                    href="/tromso-port-guide"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Tromsø port guide
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Evening aurora
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  Aurora chases only when darkness and ship timing allow,
+                  typically overnight winter calls. Visibility stays weather and
+                  solar-activity dependent. No sighting is promised.
+                </p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <Link
+                    href="/excursions/aurora-chase-small-group"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Aurora Chase Small Group
+                  </Link>
+                  <Link
+                    href="/northern-lights-tromso"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Northern Lights guide
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900">
+                  Cultural Arctic time
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  Reindeer visits and Sami culture for guests who want heritage
+                  and wildlife context without a late-night chase.
+                </p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <Link
+                    href="/excursions/reindeer-sami-experience"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Reindeer and Sami Experience
+                  </Link>
+                  <Link
+                    href="/reindeer-tours-tromso"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+                  >
+                    Reindeer tours guide
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              {tromsoTourCards.map((tour) => (
-                <TourCard
-                  key={tour.href}
-                  href={tour.href}
-                  image={tour.image}
-                  imageAlt={tour.imageAlt}
-                  title={tour.title}
-                  description={tour.description}
-                  accent={tour.accent}
-                />
+        <section className="border-b border-[var(--border-light)] bg-surface-muted py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Find your ship</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Check when your ship is in Tromsø
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              {tromsoScheduleIntegrity.total} published Tromsø calls from{" "}
+              {firstLabel} to {lastLabel}. Arrival and departure times shape what
+              is realistic ashore. Always confirm with your cruise line.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/ship-schedule" className="btn-outline-dark">
+                Open Tromsø ship schedule
+              </Link>
+              <Link
+                href="/one-day-in-tromso"
+                className="inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+              >
+                Then plan your hours
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="tours" className="scroll-mt-24 py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Excursion options</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Experiences already on this site
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              Five products. No invented prices. Durations are approximate. Keep
+              a return buffer. This site does not sell tickets.
+            </p>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {featured.map((tour) => (
+                <TourCard key={tour.href} {...tour} />
               ))}
             </div>
+            {remaining.length > 0 ? (
+              <div className="mt-8 grid gap-6 md:grid-cols-2">
+                {remaining.map((tour) => (
+                  <TourCard key={tour.href} {...tour} />
+                ))}
+              </div>
+            ) : null}
             <p className="mt-8">
               <Link
                 href="/excursions"
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 transition hover:border-[var(--norway-blue)] hover:text-[var(--norway-blue)]"
+                className="text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
               >
-                View all Tromsø excursions
+                Compare all Tromsø excursions
               </Link>
             </p>
           </div>
         </section>
 
-        <section id="why-tromso" className="border-t bg-white">
-          <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-            <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
-              Why Tromsø is ideal for Arctic shore excursions
+        <section className="border-y border-[var(--border-light)] bg-[var(--surface)] py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Season and timing</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Schedule presence is not aurora availability
             </h2>
-            <p className="text-base leading-8 text-slate-700 sm:text-lg">
-              Tromsø is the Arctic capital of Norway, a premium cruise destination
-              where aurora tourism, Sami heritage, reindeer encounters, and fjord
-              photography converge. Unlike southern fjord ports focused on
-              waterfalls and glaciers, Tromsø delivers Northern Lights access,
-              midnight sun summers, and indigenous Arctic culture within reach of
-              the harbour.
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              Summer calls bring long daylight and fjord scenery. Darker months
+              open evening aurora possibilities when skies cooperate. Midnight
+              sun and Northern Lights are seasonal context only, both still
+              depend on weather and visibility. No particular ship call is
+              promised lights.
             </p>
-            <ul className="mt-6 list-disc space-y-2 pl-5 text-base leading-8 text-slate-700">
-              <li>Headline Northern Lights and aurora chase experiences in winter</li>
-              <li>Arctic fjord photo tours on Kvaløya with mountain and beach scenery</li>
-              <li>Reindeer visits and Sami culture with family-friendly pacing</li>
-              <li>Arctic Cathedral and harbourfront within walking distance of many berths</li>
-              <li>Match excursions to your actual hours ashore with our Cruise Smart Planner</li>
+          </div>
+        </section>
+
+        <section className="py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">First time in Tromsø</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Useful planning guides
+            </h2>
+            <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  href: "/tromso-port-guide",
+                  title: "Cruise port guide",
+                  text: "Harbour layout, city access and pickup context for Tromsø.",
+                },
+                {
+                  href: "/one-day-in-tromso",
+                  title: "One day in Tromsø",
+                  text: "Sample shapes for short, classic and longer port calls.",
+                },
+                {
+                  href: "/is-tromso-worth-visiting",
+                  title: "Is Tromsø worth visiting?",
+                  text: "Honest context if you are deciding how to spend hours ashore.",
+                },
+              ].map((item) => (
+                <li
+                  key={item.href}
+                  className="border-t border-[var(--border-light)] pt-5"
+                >
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    <Link
+                      href={item.href}
+                      className="underline-offset-4 hover:underline"
+                    >
+                      {item.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {item.text}
+                  </p>
+                </li>
+              ))}
             </ul>
           </div>
         </section>
 
-        <section id="aurora" className="border-t bg-surface-muted">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
-              <div>
-                <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
-                  Northern Lights and Arctic Experiences
-                </h2>
-                <p className="text-base leading-8 text-slate-700">
-                  Tromsø sits under the auroral oval, making it one of Europe&apos;s
-                  best bases for Northern Lights tourism. The{" "}
-                  <Link
-                    href="/excursions/aurora-chase-small-group"
-                    className="content-link"
-                  >
-                    Aurora Chase Small Group Experience
-                  </Link>{" "}
-                  is the premium headline product for aurora seekers, with
-                  photography-focused guiding and expert local weather routing.
-                </p>
-                <p className="mt-4 text-base leading-8 text-slate-700">
-                  Daytime calls suit the{" "}
-                  <Link href="/excursions/fjord-photo-tour" className="content-link">
-                    Tromsø Fjord Photo Tour
-                  </Link>{" "}
-                  or{" "}
-                  <Link
-                    href="/excursions/reindeer-sami-experience"
-                    className="content-link"
-                  >
-                    Reindeer Visit and Sami Experience
-                  </Link>
-                  . Read our{" "}
-                  <Link href="/northern-lights-tromso" className="content-link">
-                    Northern Lights Tromsø guide
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/northern-lights-cruise-excursions"
-                    className="content-link"
-                  >
-                    winter cruise excursions page
-                  </Link>{" "}
-                  for seasonal planning.
-                </p>
-                <Link
-                  href="/northern-lights-tromso"
-                  className="btn-primary-on-light mt-6 inline-block"
-                >
-                  Northern Lights guide
-                </Link>
-              </div>
-              <figure className="overflow-hidden rounded-xl border border-slate-200 shadow-md">
-                <img
-                  src={siteImages.northernLights}
-                  alt={imageAlts.northernLights}
-                  className="aspect-[4/3] h-full w-full object-cover"
-                />
-              </figure>
+        <section
+          id="planner"
+          className="scroll-mt-24 border-y border-[var(--border-light)] bg-surface-muted py-14 sm:py-16"
+        >
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Port-day planning</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Think in hours, darkness and return buffer
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              Use published times as a planning start. This Cruise Smart Planner
+              helps you think through the day. It does not invent coach
+              operation, weather or aurora visibility.
+            </p>
+            <div className="mt-8">
+              <CruisePortDayPlanner />
             </div>
           </div>
         </section>
 
-        <section id="planner" className="border-t bg-white">
-          <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-            <CruisePortDayPlanner />
-            <PlannerInterestGroups />
+        <section className="py-14 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <p className="section-eyebrow">Norway beyond Tromsø</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Planning other Norwegian ports?
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+              For multi-port itineraries, the national planning site covers the
+              wider Norway cruise picture.
+            </p>
+            <a
+              href={siteConfig.nationalAuthorityUrl}
+              className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-[var(--norway-blue)] underline-offset-4 hover:underline"
+            >
+              Norway Shore Excursions
+            </a>
           </div>
         </section>
 
-        <ExploreNorwegianPorts config={explorePortsFromTromso} variant="full" />
-
-        <section id="faqs" className="border-t bg-surface-muted">
-          <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-            <h2 className="mb-6 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Tromsø cruise passenger FAQs
+        <section className="border-y border-[var(--border-light)] bg-[var(--surface)] py-14 sm:py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
+            <p className="section-eyebrow">FAQ</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Tromsø cruise questions
             </h2>
-            <dl className="space-y-6">
+            <dl className="mt-8 space-y-6">
               {homeFaqs.map((faq) => (
-                <div
-                  key={faq.question}
-                  className="rounded-lg border border-slate-200 border-l-[3px] border-l-[var(--norway-blue)] bg-white p-5 shadow-sm"
-                >
+                <div key={faq.question}>
                   <dt className="font-semibold text-slate-900">{faq.question}</dt>
-                  <dd className="mt-2 leading-7 text-slate-700">{faq.answer}</dd>
+                  <dd className="mt-2 text-sm leading-6 text-slate-600">
+                    {faq.answer}
+                  </dd>
                 </div>
               ))}
             </dl>
           </div>
         </section>
 
-        <section className="border-t bg-navy text-white">
-          <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6 sm:py-16">
-            <h2 className="text-2xl font-bold sm:text-3xl">
-              Plan your Tromsø port day with confidence
+        <section className="bg-navy py-14 text-white sm:py-16">
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+            <h2 className="text-2xl font-semibold sm:text-3xl">
+              Tromsø planning concierge
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/85 sm:text-lg">
-              Browse Arctic shore excursions, read the port guide, and use the
-              Cruise Smart Planner, everything built for cruise passengers who
-              need to return on time.
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base">
+              {siteConfig.contactEmailVerified
+                ? `Questions about shaping a Tromsø port day? Email ${siteConfig.contactEmail}.`
+                : "A destination email is being prepared. Until then, use the schedule, one-day guide and excursion pages on this site."}
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href={siteConfig.shoreExcursionsPath} className="btn-primary sm:text-base">
-                Book a Tour
-              </Link>
-              <Link href="/tromso-port-guide" className="btn-secondary sm:text-base">
-                Tromsø Port Guide
-              </Link>
-            </div>
+            <Link href="/contact" className="btn-primary mt-6">
+              Contact
+            </Link>
           </div>
         </section>
       </main>

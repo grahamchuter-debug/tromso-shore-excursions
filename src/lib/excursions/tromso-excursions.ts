@@ -46,7 +46,7 @@ export const auroraChaseSmallGroupExcursion: ExcursionData = {
     { src: siteImages.hero, alt: imageAlts.hero },
     { src: siteImages.northernLights, alt: imageAlts.northernLights },
     { src: siteImages.northernLightsLauklines, alt: imageAlts.northernLightsLauklines },
-    { src: siteImages.snowyArctic, alt: imageAlts.snowyArctic },
+    { src: siteImages.tromsoHarbour, alt: imageAlts.tromsoHarbour },
   ],
   highlights: [
     "Northern Lights chase away from city light pollution",
@@ -100,10 +100,10 @@ export const auroraChaseSmallGroupExcursion: ExcursionData = {
   ],
   relatedLinks: sharedRelatedLinks,
   bookingHref: "/excursions",
-  bookingLabel: "Book this excursion",
-  ctaTitle: "Ready to chase the Northern Lights from Tromsø?",
+  bookingLabel: "Explore this excursion",
+  ctaTitle: "Compare Tromsø aurora chase options",
   ctaText:
-    "Secure your aurora chase before peak winter season and explore more Arctic shore excursions built around your ship's timetable.",
+    "Read the notes above, then compare small-group and private aurora pages. This site does not sell tickets. Aurora sightings are never guaranteed.",
 };
 
 export const fjordPhotoTourExcursion: ExcursionData = {
@@ -135,7 +135,7 @@ export const fjordPhotoTourExcursion: ExcursionData = {
     { src: siteImages.kaldfjord, alt: imageAlts.kaldfjord },
     { src: siteImages.arcticCathedralBridge, alt: imageAlts.arcticCathedralBridge },
     { src: siteImages.tromsoHarbour, alt: imageAlts.tromsoHarbour },
-    { src: siteImages.midnightSun, alt: imageAlts.midnightSun },
+    { src: siteImages.arcticCathedral, alt: imageAlts.arcticCathedral },
   ],
   highlights: [
     "Arctic fjords and mountain backdrops",
@@ -191,10 +191,10 @@ export const fjordPhotoTourExcursion: ExcursionData = {
     { label: "Fjord tours Tromsø", href: "/fjord-tours-tromso" },
   ],
   bookingHref: "/excursions",
-  bookingLabel: "Book this excursion",
-  ctaTitle: "Ready to photograph Arctic fjords from Tromsø?",
+  bookingLabel: "Explore this excursion",
+  ctaTitle: "Compare Tromsø fjord photo options",
   ctaText:
-    "Browse fjord photo tours and match your port hours with the Cruise Smart Planner on our homepage.",
+    "Use these notes to judge fit for your hours ashore, then browse other Tromsø excursions. This site does not sell tickets.",
 };
 
 export const reindeerSamiExperienceExcursion: ExcursionData = {
@@ -225,7 +225,7 @@ export const reindeerSamiExperienceExcursion: ExcursionData = {
   gallery: [
     { src: siteImages.reindeer, alt: imageAlts.reindeer },
     { src: siteImages.samiCulture, alt: imageAlts.samiCulture },
-    { src: siteImages.snowyArctic, alt: imageAlts.snowyArctic },
+    { src: siteImages.tromsoHarbour, alt: imageAlts.tromsoHarbour },
     { src: siteImages.kaldfjord, alt: imageAlts.kaldfjord },
   ],
   highlights: [
@@ -282,10 +282,10 @@ export const reindeerSamiExperienceExcursion: ExcursionData = {
     { label: "Reindeer tours Tromsø", href: "/reindeer-tours-tromso" },
   ],
   bookingHref: "/excursions",
-  bookingLabel: "Book this excursion",
-  ctaTitle: "Ready for a reindeer and Sami experience from Tromsø?",
+  bookingLabel: "Explore this excursion",
+  ctaTitle: "Compare Tromsø cultural experiences",
   ctaText:
-    "Browse Arctic culture tours and use the Cruise Smart Planner to match duration to your ship's timetable.",
+    "Read the notes above, then compare other Tromsø options that fit your hours ashore. This site does not sell tickets.",
 };
 
 export const privateAuroraChaseExcursion: ExcursionData = {
@@ -317,7 +317,7 @@ export const privateAuroraChaseExcursion: ExcursionData = {
     { src: siteImages.northernLightsLauklines, alt: imageAlts.northernLightsLauklines },
     { src: siteImages.northernLights, alt: imageAlts.northernLights },
     { src: siteImages.hero, alt: imageAlts.hero },
-    { src: siteImages.snowyArctic, alt: imageAlts.snowyArctic },
+    { src: siteImages.tromsoCruiseHarbour, alt: imageAlts.tromsoCruiseHarbour },
   ],
   highlights: [
     "Private Northern Lights search",
@@ -329,7 +329,7 @@ export const privateAuroraChaseExcursion: ExcursionData = {
   ],
   description: [
     "The Private Aurora Chase removes shared-coach constraints so your guide can pivot toward clearer skies and darker viewpoints as weather shifts. This suits photographers, honeymooners, and families who want space to set up tripods without crowding.",
-    "Flexible routing may cross fjords, coastal roads, or inland valleys depending on cloud forecasts. Guides still cannot guarantee aurora displays, but private touring maximises your odds within the hours you book.",
+    "Flexible routing may cross fjords, coastal roads, or inland valleys depending on cloud forecasts. Guides still cannot guarantee aurora displays. Private touring mainly adds routing flexibility within the hours you book, not a higher sighting promise.",
     "Evening timing suits overnight cruise calls and land visitors. Compare with the Aurora Chase Small Group Experience if you prefer a lower per-person cost and social group atmosphere.",
     "Read best Northern Lights tours Tromsø for a side-by-side comparison of small group and private aurora options.",
   ],
@@ -369,10 +369,10 @@ export const privateAuroraChaseExcursion: ExcursionData = {
   ],
   relatedLinks: sharedRelatedLinks,
   bookingHref: "/excursions",
-  bookingLabel: "Book this excursion",
-  ctaTitle: "Ready for a private Northern Lights chase?",
+  bookingLabel: "Explore this excursion",
+  ctaTitle: "Compare private and small-group aurora options",
   ctaText:
-    "Compare premium aurora tours and secure private routing before peak aurora season.",
+    "Use these notes to judge fit for your hours ashore. Aurora visibility remains weather and solar-activity dependent. This site does not sell tickets.",
 };
 
 export const privateFjordPhotoExperienceExcursion: ExcursionData = {
@@ -404,7 +404,7 @@ export const privateFjordPhotoExperienceExcursion: ExcursionData = {
     { src: siteImages.kaldfjord, alt: imageAlts.kaldfjord },
     { src: siteImages.tromsoHarbour, alt: imageAlts.tromsoHarbour },
     { src: siteImages.arcticCathedral, alt: imageAlts.arcticCathedral },
-    { src: siteImages.midnightSun, alt: imageAlts.midnightSun },
+    { src: siteImages.arcticCathedralBridge, alt: imageAlts.arcticCathedralBridge },
   ],
   highlights: [
     "Private guide and vehicle",
@@ -430,7 +430,7 @@ export const privateFjordPhotoExperienceExcursion: ExcursionData = {
   timingAdvice: [
     "Best on six-hour or longer port calls with confirmed return times.",
     "Tell your guide your photography priorities before departure.",
-    "Summer midnight sun evenings offer extended golden light for private touring.",
+    "Summer evenings with extended daylight can offer longer soft light for private touring when your call timing allows.",
     "Allow 45 minutes before all aboard on cruise days.",
   ],
   faqs: [
@@ -460,8 +460,8 @@ export const privateFjordPhotoExperienceExcursion: ExcursionData = {
     { label: "Fjord tours Tromsø", href: "/fjord-tours-tromso" },
   ],
   bookingHref: "/excursions",
-  bookingLabel: "Book this excursion",
-  ctaTitle: "Ready for a private fjord photo experience?",
+  bookingLabel: "Explore this excursion",
+  ctaTitle: "Compare Tromsø private fjord options",
   ctaText:
-    "Browse premium Tromsø shore excursions and match private touring to your port hours.",
+    "Use these notes to judge fit for your hours ashore, then browse other Tromsø excursions. This site does not sell tickets.",
 };

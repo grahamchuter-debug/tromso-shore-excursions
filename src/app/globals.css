@@ -3,6 +3,7 @@
 :root {
   --background: #f7fbfc;
   --foreground: #0f1a2e;
+  --surface: #f0f6f7;
   --surface-muted: #e8eef1;
   --navy: #0a1628;
   --navy-deep: #050d18;
@@ -10,6 +11,7 @@
   --norway-blue: #2dd4a8;
   --norway-blue-hover: #22b892;
   --norway-red: #7dd3fc;
+  --accent-soft: #7ec8b5;
   --polar-grey: #9aabb0;
   --mist-grey: #b8c4c9;
   --border-light: #c5d0d6;
@@ -106,6 +108,42 @@ body {
 
 .btn-primary-on-light:hover {
   background-color: var(--norway-blue-hover);
+}
+
+.btn-outline-dark {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border-light);
+  background-color: #ffffff;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--norway-blue);
+  color: var(--navy);
+}
+
+.hero-eyebrow,
+.section-eyebrow {
+  letter-spacing: 0.16em;
+}
+
+.hero-eyebrow {
+  color: var(--accent-soft);
+}
+
+.section-eyebrow {
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .page-hero {

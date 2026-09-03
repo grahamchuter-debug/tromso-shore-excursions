@@ -1,7 +1,6 @@
 export const siteNavLinks = [
   { label: "Excursions", href: "/excursions" },
-  { label: "Port Guide", href: "/tromso-port-guide" },
-  { label: "One Day", href: "/one-day-in-tromso" },
-  { label: "Worth Visiting?", href: "/is-tromso-worth-visiting" },
-  { label: "Northern Lights", href: "/northern-lights-tromso" },
+  { label: "Plan your day", href: "/one-day-in-tromso" },
+  { label: "Ship schedule", href: "/ship-schedule" },
+  { label: "Port guide", href: "/tromso-port-guide" },
 ] as const;
